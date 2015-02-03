@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+
+  <template id="studio-navbar-template">
+    <style>
+    :host {
+      background-color: gray;
+    }
+    ::content :link {
+      color: white;
+    }
+    ::content a {
+      line-height: 2em;
+      margin: 0 1em;
+    }
+    </style>
+    <content select="a"></content>
+  </template>
+
+  <script>
+  (function () {
+    document.registerElement('livefyre-s2-navbar', (function () {
+      function StudioNavbarElement() {
+      }
+
+      StudioNavbarElement.prototype = Object.create(HTMLElement.prototype)
+
+      StudioNavbarElement.prototype.createdCallback = function (){ 
+        console.log('StudioNavbarElement#createdCallback');
+        var shadow = this.createShadowRoot();
+        var template = document.querySelector('#studio-navbar-template');
+        var clone = document.importNode(template.content, true);
+        shadow.appendChild(clone);
+      }
+
+      return StudioNavbarElement;
+    }()));
+  }());
+  </script>
+</head>
+
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+
+  <template id="studio-shell-template">
+    <style>
+    :host {
+      display: block;
+    }
+    ::content .navigation {
+      display: block;
+    }
+    </style>
+    <content select=".navigation"></content>
+    <h1>BEHOLD THE SHELL!</h1>
+  </template>
+
+  <script>
+  (function () {
+    document.registerElement('livefyre-s2-shell', (function () {
+      function StudioShellElement() {
+      }
+
+      StudioShellElement.prototype = Object.create(HTMLElement.prototype)
+
+
+      StudioShellElement.prototype.createdCallback = function (){ 
+        console.log('StudioShellElement#createdCallback');
+        var shadow = this.createShadowRoot();
+        var template = document.querySelector('#studio-shell-template');
+        var clone = document.importNode(template.content, true);
+        shadow.appendChild(clone);
+      }
+
+      return StudioShellElement;
+    }()));
+  }());
+  </script>
+</head>
+</html>
