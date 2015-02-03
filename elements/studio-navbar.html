@@ -20,8 +20,34 @@
     <content select="a"></content>
   </template>
 
+
+</head>
+
+  <script src="../node_modules/es6-module-loader/dist/es6-module-loader.src.js"></script>
+
+  <script>
+  // Adventures in trying to have a separate .js file...
+  // WHAT ABOUT THE TEMPLATE...
+  (function () {
+    var thisDocument = document.currentScript.ownerDocument;
+    var thisUrl = thisDocument.baseURI;
+    var thisDir = thisUrl.split('/').slice(0, -1).join('/') +'/';
+
+    System.baseURL = thisDir;
+
+    System.import('studio-navbar').then(function (module) {
+      var StudioNavbarElementWithTemplate = Object.create(module.default);
+      StudioNavbarElementWithTemplate.template = document.querySelector('studio-navbar-template');
+
+      debugger;
+    })
+  }());
+  </script>
+
   <script>
   (function () {
+    var thisDocument = document.currentScript.ownerDocument;
+
     document.registerElement('livefyre-s2-navbar', (function () {
       function StudioNavbarElement() {
       }
@@ -31,8 +57,8 @@
       StudioNavbarElement.prototype.createdCallback = function (){ 
         console.log('StudioNavbarElement#createdCallback');
         var shadow = this.createShadowRoot();
-        var template = document.querySelector('#studio-navbar-template');
-        var clone = document.importNode(template.content, true);
+        var template = thisDocument.querySelector('#studio-navbar-template');
+        var clone = thisDocument.importNode(template.content, true);
         shadow.appendChild(clone);
       }
 
@@ -40,6 +66,5 @@
     }()));
   }());
   </script>
-</head>
 
 </html>

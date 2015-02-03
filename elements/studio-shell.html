@@ -19,6 +19,8 @@
 
   <script>
   (function () {
+    var thisDocument = document.currentScript.ownerDocument;
+    
     document.registerElement('livefyre-s2-shell', (function () {
       function StudioShellElement() {
       }
@@ -29,8 +31,8 @@
       StudioShellElement.prototype.createdCallback = function (){ 
         console.log('StudioShellElement#createdCallback');
         var shadow = this.createShadowRoot();
-        var template = document.querySelector('#studio-shell-template');
-        var clone = document.importNode(template.content, true);
+        var template = thisDocument.querySelector('#studio-shell-template');
+        var clone = thisDocument.importNode(template.content, true);
         shadow.appendChild(clone);
       }
 

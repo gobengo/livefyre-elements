@@ -10,5 +10,9 @@
   "license": "ISC",
   "devDependencies": {
     "vulcanize": "^0.7.7"
+  },
+  "dependencies": {
+    "es6-module-loader": "^0.13.0",
+    "traceur": "0.0.82"
   }
 }
